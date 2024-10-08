@@ -1,54 +1,43 @@
-Here is a beautified `README.md` for your Spring Boot with WebRTC project:
-
-```markdown
 # Spring Boot with WebRTC
 
-This project demonstrates the use of Spring Boot with WebRTC for real-time communication. Follow the steps below before running the application.
+This README provides instructions for setting up and running the Spring Boot WebRTC application.
 
-## Steps
+## Prerequisites
+
+Before running the application, follow these steps:
 
 ### 1. Generate Certificates
 
-You need to generate SSL certificates for secure communication.
+First, determine your local IP address. For example: `YOUR_LOCAL_IP = 192.168.0.166`
 
-- Replace `<YOUR_LOCAL_IP>` with the local IP address of your computer/host. For example:
-  ```
-YOUR_LOCAL_IP = 192.168.0.166
-  ```
+Create an empty `ssl` folder in the project directory and generate the certificates:
 
-- Create an empty `ssl` folder under the project directory:
-  ```bash
-  mkdir ssl
-  ```
+```bash
+mkdir ssl && openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+-keyout ssl/private_key.pem -out ssl/certificate.pem \
+-subj "//C=US//ST=California//L=San Francisco//O=MyOrganization//OU=MyDepartment//CN=<YOUR_LOCAL_IP>"
+```
 
-- Run the following command to generate the certificates:
-  ```bash
-  openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ssl/private_key.pem -out ssl/certificate.pem -subj "//C=US//ST=California//L=San Francisco//O=MyOrganization//OU=MyDepartment//CN=<YOUR_LOCAL_IP>"
-  ```
+Replace `<YOUR_LOCAL_IP>` with your actual local IP address.
 
-### 2. Update `nginx.conf`
+### 2. Update nginx.conf
 
-- Open the `nginx.conf` file and replace `<YOUR_LOCAL_IP>` with your local IP (same as in step 1).
+In the `nginx.conf` file, replace `<YOUR_LOCAL_IP>` with your local IP address (the same one used in step 1).
 
-### 3. Update `client.js`
+### 3. Update client.js
 
-- Locate the `client.js` file in the following directory:
-  ```
-  src/main/resources/static/client.js
-  ```
-
-- Update the file to reflect your local configuration.
+Navigate to `src/main/resources/static/client.js` and make any necessary updates.
 
 ### 4. Build Docker Image
 
-To run the application with Docker, execute the following command:
+Run the following command to build and start the Docker containers:
+
 ```bash
 sudo docker-compose up -d --build
 ```
 
----
+## Running the Application
 
-Now, you're all set to run the Spring Boot WebRTC application!
-```
+After completing the above steps, your Spring Boot WebRTC application should be ready to run.
 
-This `README.md` format is clean, structured, and easy to follow.
+For additional information or troubleshooting, please refer to the project documentation or contact the development team.
